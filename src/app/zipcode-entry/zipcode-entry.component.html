@@ -1,8 +1,29 @@
-<div class="well">
-  <h2>Enter a zipcode:</h2>
-  <input type="text" #zipcode placeholder="Zipcode" class="form-control">
-  <br>
-  <button class="btn btn-primary" (click)="addLocation(zipcode.value)" >
-    Add location
-  </button>
+<div class='well'>
+  <form (ngSubmit)='addLocation()' #form='ngForm'>
+    <h2>Enter a zipcode:</h2>
+    <input type='text'
+           placeholder='Zipcode'
+           required
+           name='zip'
+           [(ngModel)]='zip'
+           pattern='^\d{5}$'
+           #zipRef='ngModel'
+           class='form-control'>
+    <br>
+    <span class='error' *ngIf='zipRef.errors?.pattern'>Please use a valid zip code</span>
+    <br>
+    <h2>Enter a country:</h2>
+    <app-autocomplete-input required
+                            name='countryName'
+                            [countries]='countries'
+                            [(ngModel)]='country'>
+    </app-autocomplete-input>
+    <br>
+    <button class='btn btn-primary'
+            type='submit'
+            [disabled]='!form.form.valid'
+            [ngClass]='state$ | async'>
+      {{label$ | async}}
+    </button>
+  </form>
 </div>

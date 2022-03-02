@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import {WeatherService} from "../weather.service";
-import {LocationService} from "../location.service";
-import {Router} from "@angular/router";
+import { Component }                          from '@angular/core';
+import { Router }                             from '@angular/router';
+import { Observable }                         from 'rxjs';
+import { CountryCode, WeatherCondition, Zip } from '../weather.interface';
+import { WeatherService }                     from '../weather.service';
 
 @Component({
   selector: 'app-current-conditions',
@@ -9,15 +10,26 @@ import {Router} from "@angular/router";
   styleUrls: ['./current-conditions.component.css']
 })
 export class CurrentConditionsComponent {
+  currentConditions$: Observable<WeatherCondition[]>;
 
-  constructor(private weatherService : WeatherService, private locationService : LocationService, private router : Router) {
+  constructor(
+    public weatherService: WeatherService,
+    private router: Router
+  ) {
+    this.currentConditions$ = this.weatherService.currentConditions;
+    this.weatherService.autoRefresh();
   }
 
-  getCurrentConditions() {
-    return this.weatherService.getCurrentConditions();
+  showForecast(zip: Zip, countryCode: CountryCode) {
+    this.router.navigate(['/forecast', zip, countryCode]);
   }
 
-  showForecast(zipcode : string){
-    this.router.navigate(['/forecast', zipcode])
+  trackByFn(index: number, item: WeatherCondition) {
+    return item.zip;
+  }
+
+  onClickRemoveCondition(event: Event, zip: Zip, countryCode: CountryCode) {
+    event.stopImmediatePropagation();
+    this.weatherService.removeCurrentConditions({ zip, countryCode });
   }
 }

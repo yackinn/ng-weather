@@ -1,0 +1,16 @@
+<div class='autocomplete-input'>
+  <input type='text'
+         [required]='required'
+         [placeholder]='placeholder'
+         [(ngModel)]='value'
+         (focus)='onFocus()'
+         [class.focus]='isFocused'>
+
+  <div class='autocomplete-list'>
+    <div class='country-entry'
+         *ngFor='let country of filteredCountries | async'
+         (click)='onClickCountry(country)'>
+      <p [innerHTML]='country.name | highlight: value | html'></p>
+    </div>
+  </div>
+</div>

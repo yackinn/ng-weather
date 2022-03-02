@@ -1,0 +1,26 @@
+p {
+    margin: 0;
+}
+
+input.focus ~ .autocomplete-list {
+    display: block;
+}
+
+.autocomplete-list {
+    display: none;
+    z-index: 10;
+    position: absolute;
+    background: #fff;
+    max-height: 400px;
+    overflow-y: scroll;
+    box-shadow: 0 4px 16px 1px rgba(0, 0, 0, .5);
+}
+
+.country-entry {
+    padding: 8px 12px;
+}
+
+.country-entry:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .1);
+}

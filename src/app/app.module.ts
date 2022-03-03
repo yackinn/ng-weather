@@ -12,8 +12,9 @@ import { ForecastsListComponent }     from './forecasts-list/forecasts-list.comp
 import { LocationService }            from './location.service';
 import { MainPageComponent }          from './main-page/main-page.component';
 import { ArrayValidator }             from './shared/array-validator.directive';
-import { HighlightPipe }              from './shared/highlight.pipe';
-import { SanitizeHtmlPipe }           from './shared/sanitize-html.pipe';
+import { HighlightPipe }             from './shared/highlight.pipe';
+import { ThreeStateButtonComponent } from './shared/three-state-button.component';
+import { SanitizeHtmlPipe }          from './shared/sanitize-html.pipe';
 import { WeatherService }             from './weather.service';
 import { AutocompleteInputComponent } from './zipcode-entry/autocomplete-input/autocomplete-input.component';
 import { ZipcodeEntryComponent }      from './zipcode-entry/zipcode-entry.component';
@@ -28,7 +29,8 @@ import { ZipcodeEntryComponent }      from './zipcode-entry/zipcode-entry.compon
     AutocompleteInputComponent,
     HighlightPipe,
     SanitizeHtmlPipe,
-    ArrayValidator
+    ArrayValidator,
+    ThreeStateButtonComponent
   ],
   imports: [
     BrowserModule,

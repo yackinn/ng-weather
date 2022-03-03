@@ -1,7 +1,6 @@
 import { Component, Input, ViewChild }                  from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { BehaviorSubject }                              from 'rxjs';
-import { map }                                          from 'rxjs/operators';
 import countriesJson                                    from '../../assets/countries.json';
 import { Country, CountryName }                         from '../weather.interface';
 import { WeatherService }                               from '../weather.service';
@@ -19,18 +18,6 @@ export class ZipcodeEntryComponent {
   zip: number;
   country: number;
   state$: BehaviorSubject<'ready' | 'adding' | 'done'> = new BehaviorSubject('ready');
-  label$                                               = this.state$.pipe(
-    map(state => {
-      switch (state) {
-        case 'ready':
-          return 'Add Location';
-        case 'adding':
-          return 'Adding...';
-        case 'done':
-          return 'Done';
-      }
-    })
-  );
 
   @Input() set isLoading(isLoading: boolean) {
     const state = this.state$.getValue();
@@ -59,6 +46,7 @@ export class ZipcodeEntryComponent {
     const countryCode = this.countriesDict[countryName]?.countryCode;
     const zip         = this.form.value['zip'];
     this.service.addCurrentConditions({ zip, countryCode });
+    this.service.setLoading();
     this.form.reset();
   }
 

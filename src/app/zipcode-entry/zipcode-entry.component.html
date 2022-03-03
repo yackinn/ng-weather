@@ -1,5 +1,6 @@
 <div class='well'>
   <form (ngSubmit)='addLocation()' #form='ngForm'>
+
     <h2>Enter a zipcode:</h2>
     <input type='text'
            placeholder='Zipcode'
@@ -11,7 +12,9 @@
            class='form-control'>
     <br>
     <span class='error' *ngIf='zipRef.dirty && zipRef.errors?.required'>This field is required.</span>
+
     <br>
+
     <h2>Enter a country:</h2>
     <app-autocomplete-input required
                             name='countryName'
@@ -25,12 +28,20 @@
     <span class='error' *ngIf='countryRef.dirty && countryRef.errors?.required'>This field is required.</span>
     <br>
     <span class='error' *ngIf='countryRef.dirty && countryRef.errors?.invalid'>Please select a valid country.</span>
+
     <br>
-    <button class='btn btn-primary'
-            type='submit'
-            [disabled]='!form.form.valid'
-            [ngClass]='state$ | async'>
-      {{label$ | async}}
-    </button>
+
+    <app-three-state-button [disabled]='!form.form.valid'
+                            [ngClass]='state$ | async'
+                            [state]='state$ | async'>
+      <!-- Just using one ng-container and the structural directive on these elements might be better -->
+      <p ready>Add Location</p>
+      <p adding>Adding...</p>
+      <div done>
+        <img src='/assets/icons/checkmark.svg' class='checkmark'>
+        <p>done</p>
+      </div>
+    </app-three-state-button>
+
   </form>
 </div>

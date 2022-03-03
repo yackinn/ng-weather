@@ -6,3 +6,7 @@ body {
 .highlight {
     font-weight: bold;
 }
+
+.error {
+    color: darkred;
+}

@@ -50,9 +50,8 @@ export class AutocompleteInputComponent implements ControlValueAccessor, OnInit 
   }
 
   writeValue(value: any) {
-    if (value !== this.innerValue) {
-      this.innerValue = value;
-    }
+    this._input.next(value);
+    this.innerValue = value;
   }
 
   registerOnChange(fn: any): void {
@@ -72,11 +71,17 @@ export class AutocompleteInputComponent implements ControlValueAccessor, OnInit 
     this.isFocused = true;
   }
 
+  onBlur() {
+    setTimeout(() => {
+      this.isFocused = false;
+    }, 100);
+  }
+
   private setupFilteredCountries() {
     this.filteredCountries = this._input.pipe(
       withLatestFrom(of(this.countries)),
       map(([input, countries]: [string, Country[]]) => {
-        if (input.length === 0) {
+        if (!input || input.length === 0) {
           return [];
         }
         return countries.filter(country => country.name.toLowerCase().includes(input.toLowerCase()));

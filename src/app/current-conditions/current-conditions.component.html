@@ -1,6 +1,6 @@
 <div>
   <div *ngFor='let location of currentConditions$ | async; trackBy: trackByFn'
-       class='well flex'
+       class='well flex current-condition'
        (click)='showForecast(location.zip, location.countryCode)'>
     <div>
       <h3>{{location.data.name}} ({{location.zip}})</h3>

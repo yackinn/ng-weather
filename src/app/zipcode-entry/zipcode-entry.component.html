@@ -10,14 +10,21 @@
            #zipRef='ngModel'
            class='form-control'>
     <br>
-    <span class='error' *ngIf='zipRef.errors?.pattern'>Please use a valid zip code</span>
+    <span class='error' *ngIf='zipRef.dirty && zipRef.errors?.required'>This field is required.</span>
     <br>
     <h2>Enter a country:</h2>
     <app-autocomplete-input required
                             name='countryName'
                             [countries]='countries'
-                            [(ngModel)]='country'>
+                            validate
+                            [array]='countries'
+                            [validateFn]='validateCountry'
+                            [(ngModel)]='country'
+                            #countryRef='ngModel'>
     </app-autocomplete-input>
+    <span class='error' *ngIf='countryRef.dirty && countryRef.errors?.required'>This field is required.</span>
+    <br>
+    <span class='error' *ngIf='countryRef.dirty && countryRef.errors?.invalid'>Please select a valid country.</span>
     <br>
     <button class='btn btn-primary'
             type='submit'

@@ -1,10 +1,10 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { FormGroup }                   from '@angular/forms';
-import { BehaviorSubject }             from 'rxjs';
-import { map }                         from 'rxjs/operators';
-import countriesJson                   from '../../assets/countries.json';
-import { Country, CountryName }        from '../weather.interface';
-import { WeatherService }              from '../weather.service';
+import { Component, Input, ViewChild }                  from '@angular/core';
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { BehaviorSubject }                              from 'rxjs';
+import { map }                                          from 'rxjs/operators';
+import countriesJson                                    from '../../assets/countries.json';
+import { Country, CountryName }                         from '../weather.interface';
+import { WeatherService }                               from '../weather.service';
 
 @Component({
   selector: 'app-zipcode-entry',
@@ -47,11 +47,17 @@ export class ZipcodeEntryComponent {
 
   constructor(private service: WeatherService) {}
 
+  validateCountry(control: AbstractControl, countries: Country[]): ValidationErrors {
+    const isValid = countries.some(country => country.name === control.value);
+    const error   = { invalid: 'value not available' };
+
+    return isValid ? null : error;
+  }
+
   addLocation() {
     const countryName = this.form.value['countryName'];
-    const countryCode = this.countriesDict[countryName].countryCode;
+    const countryCode = this.countriesDict[countryName]?.countryCode;
     const zip         = this.form.value['zip'];
-
     this.service.addCurrentConditions({ zip, countryCode });
     this.form.reset();
   }

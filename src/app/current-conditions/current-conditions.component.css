@@ -1,6 +1,7 @@
-.close {
+.current-condition {
   cursor: pointer;
 }
+
 .flex {
   display: flex;
   justify-content: space-between;

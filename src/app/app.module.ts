@@ -11,6 +11,7 @@ import { CurrentConditionsComponent } from './current-conditions/current-conditi
 import { ForecastsListComponent }     from './forecasts-list/forecasts-list.component';
 import { LocationService }            from './location.service';
 import { MainPageComponent }          from './main-page/main-page.component';
+import { ArrayValidator }             from './shared/array-validator.directive';
 import { HighlightPipe }              from './shared/highlight.pipe';
 import { SanitizeHtmlPipe }           from './shared/sanitize-html.pipe';
 import { WeatherService }             from './weather.service';
@@ -26,7 +27,8 @@ import { ZipcodeEntryComponent }      from './zipcode-entry/zipcode-entry.compon
     MainPageComponent,
     AutocompleteInputComponent,
     HighlightPipe,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    ArrayValidator
   ],
   imports: [
     BrowserModule,
